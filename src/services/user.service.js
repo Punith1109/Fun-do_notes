@@ -1,7 +1,7 @@
 import User from '../models/user.model';
 import bcrypt from 'bcrypt';
 
-
+import jwt from 'jsonwebtoken';
 
 // registration function
 export const get1user =async(body) =>{
@@ -14,11 +14,13 @@ export const get1user =async(body) =>{
 
 //login function
 export const newUser = async (body) => {
-    const isEmailmatch= await User.findOne({ email_id: body.email_id });
+    const Data= await User.findOne({ email_id: body.email_id });
 
-    if (isEmailmatch){
-      const isPasswordMatch = await bcrypt.compare(body.password, isEmailmatch.password);
-      if(isPasswordMatch){return("Login successful");}
+    if (Data){
+      const Match = await bcrypt.compare(body.password, Data.password);
+      if(Match){
+        var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+      return token}
       else{throw new Error("invalid password");}
     }
     else{throw new Error("Invalid Email");} 
