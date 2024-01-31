@@ -4,9 +4,9 @@ import * as UserService from '../services/user.service';
 
 
 // registration
-export const newUser = async (req, res, next) => {
+export const register = async (req, res, next) => {
   try {
-    const data = await UserService.get1user(req.body);
+    const data = await UserService.registerUser(req.body);
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
       data: data,
@@ -19,16 +19,64 @@ export const newUser = async (req, res, next) => {
 };
 
 // login function
-export const getUser = async (req, res, next) => {
+export const login = async (req, res, next) => {
   try {
-    const data = await UserService.newUser(req.body);
+    const data = await UserService.loginuser(req.body);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
-        message: 'User fetched successfully'
+        message: 'Login needs Authorization'
       });
     }
   catch (error) {
+    next(error);
+  }
+};
+
+
+export const getUser = async (req, res, next) => {
+  try {
+    const userId = req.params._id; 
+    const data = await UserService.getUser(userId);
+    
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'Login successful'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+//Delete function
+
+export const deleteuser=async(req,res,next)=>{
+  try{
+    const userId = req.params._id;
+    const data=await UserService.deleteUserbyId(userId);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'User deleted successfully'
+    });
+  }catch(error){
+    next(error)
+  }
+};
+
+//update
+
+export const update = async (req, res, next) => {
+  try {
+    const userId = req.params._id;
+    const updateData = req.body; 
+    const data = await UserService.updateu(userId, updateData);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'User updated successfully'
+    });
+  } catch (error) {
     next(error);
   }
 };

@@ -1,12 +1,13 @@
 import HttpStatus from 'http-status-codes';
 import * as NoteService from '../services/note.service';
 
-
+import * as noteController from '../controllers/note.controller';
+import { error } from '@hapi/joi/lib/base';
 
 // registration
-export const newNote = async (req, res, next) => {
+export const Registration = async (req, res, next) => {
   try {
-    const data = await NoteService.getNote(req.body);
+    const data = await NoteService.Registration(req.body);
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
       data: data,
@@ -19,16 +20,35 @@ export const newNote = async (req, res, next) => {
 };
 
 // login function
-export const getNote = async (req, res, next) => {
+export const login = async (req, res, next) => {
   try {
-    const data = await NoteService.newNote(req.body);
+    const data = await NoteService.login(req.body);
+    if(data){
+
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
         message: 'Note Login Succesffully'
-      });
+      });}
+      else{throw new Error("Invalid login Id")}
     }
   catch (error) {
+    next(error);
+  }
+};
+
+//Delete
+
+export const Delete = async (req, res, next) => {
+  try {
+    const noteId = req.params.noteId;
+    const data = await NoteService.Delete(noteId);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'Note delete successfull',
+    });
+  } catch (error) {
     next(error);
   }
 };
