@@ -24,3 +24,15 @@ export const Delete = async (id) => {
   await Note.findByIdAndDelete(id);
   return id;
 };
+
+export const updateu= async (id, updateData) => {
+  const data = await Note.findByIdAndUpdate(id, updateData, { new: true });
+  return data;
+};
+
+
+//get all
+export const getAllNotes = async () => {
+  const data = await Note.find();
+  return data;
+};
