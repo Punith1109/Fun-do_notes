@@ -28,6 +28,8 @@ export const loginuser = async (body) => {
     else{throw new Error("Invalid Email");} 
   };  
 
+
+  
   export const getUser = async (id) => {
     const data = await User.findById(id);
     return data;

@@ -5,9 +5,9 @@ import * as noteController from '../controllers/note.controller';
 import { error } from '@hapi/joi/lib/base';
 
 // registration
-export const Registration = async (req, res, next) => {
+export const newnote = async (req, res, next) => {
   try {
-    const data = await NoteService.Registration(req.body);
+    const data = await NoteService.newnote(req.body);
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
       data: data,
@@ -20,9 +20,10 @@ export const Registration = async (req, res, next) => {
 };
 
 // login function
-export const login = async (req, res, next) => {
+export const getnote = async (req, res, next) => {
   try {
-    const data = await NoteService.login(req.body);
+    const noteId=req.params.id
+    const data = await NoteService.getnote({id:noteId});
     if(data){
 
       res.status(HttpStatus.OK).json({
@@ -39,10 +40,10 @@ export const login = async (req, res, next) => {
 
 //Delete
 
-export const Delete = async (req, res, next) => {
+export const delnote = async (req, res, next) => {
   try {
     const noteId = req.params._id;
-    const data = await NoteService.Delete(noteId);
+    const data = await NoteService.delnote(noteId);
     res.status(HttpStatus.OK).json({
       code: HttpStatus.OK,
       data: data,
@@ -54,11 +55,11 @@ export const Delete = async (req, res, next) => {
 };
 
 
-export const update = async (req, res, next) => {
+export const updatenote = async (req, res, next) => {
   try {
     const noteId = req.params._id;
     const updateData = req.body; 
-    const data = await NoteService.updateu(noteId, updateData);
+    const data = await NoteService.updatenote(noteId, updateData);
     res.status(HttpStatus.OK).json({
       code: HttpStatus.OK,
       data: data,

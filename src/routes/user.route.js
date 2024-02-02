@@ -6,17 +6,17 @@ import { userAuth } from '../middlewares/auth.middleware';
 const router = express.Router();
 
 // registering
-router.post('', newUserValidator, userController.register);
+router.post('', newUserValidator, userController.newuser);
 
 //login
-router.post('/:_id', userController.login);
+router.post('/:_id', userController.getUseru);
 
 //Delete
-router.delete('/:_id', userAuth, userController.deleteuser);
+router.delete('/:_id', userController.deleteuser);
 
 //Update
 
-router.put('/:_id',userAuth,userController.update);
+router.put('/update/:_id',userController.update);
 
 //Autherization
 router.get('/:_id',userAuth,userController.getUser)

@@ -4,15 +4,15 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 // registration function
-export const Registration =async(body) =>{
+export const newnote =async(body) =>{
  const data=await Note.create(body);
   return data;
 };
 
 
 //login function
-export const login = async (body) => {
-    const Data= await Note.findOne({ title: body.title });
+export const getnote = async (body) => {
+    const Data= await Note.findOne({ _id:body.id });
 return Data;
   };  
 
@@ -20,12 +20,12 @@ return Data;
 
 
 
-export const Delete = async (id) => {
+export const delnote = async (id) => {
   await Note.findByIdAndDelete(id);
   return id;
 };
 
-export const updateu= async (id, updateData) => {
+export const updatenote= async (id, updateData) => {
   const data = await Note.findByIdAndUpdate(id, updateData, { new: true });
   return data;
 };

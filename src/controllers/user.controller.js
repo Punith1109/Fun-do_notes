@@ -4,7 +4,7 @@ import * as UserService from '../services/user.service';
 
 
 // registration
-export const register = async (req, res, next) => {
+export const newuser = async (req, res, next) => {
   try {
     const data = await UserService.registerUser(req.body);
     res.status(HttpStatus.CREATED).json({
@@ -19,7 +19,7 @@ export const register = async (req, res, next) => {
 };
 
 // login function
-export const login = async (req, res, next) => {
+export const getUseru = async (req, res, next) => {
   try {
     const data = await UserService.loginuser(req.body);
       res.status(HttpStatus.OK).json({
